@@ -1,5 +1,9 @@
 # Swagger Express Router
 
+[![Build Status](https://travis-ci.org/scottie1984/swagger-express-router.svg?branch=master)](https://travis-ci.org/scottie1984/swagger-express-router)
+![Dependencies](https://david-dm.org/scottie1984/swagger-express-router.svg)
+[![npm version](https://badge.fury.io/js/swagger-express-router.svg)](http://badge.fury.io/js/swagger-express-router)
+
 Takes a swagger JSON document and sets up express HTTP routes bound to middleware functions. All routing is therefore driven from the swagger documentation.
 
 ## Usage
