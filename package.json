@@ -2,11 +2,19 @@
   "name": "swagger-express-router",
   "version": "1.0.0",
   "description": "Swagger Express Router",
-  "main": "./lib/swagger.js",
+  "main": "./lib/index.js",
   "files": [
     "lib",
     "package.json",
     "README.md"
+  ],
+  "keywords": [
+	"swagger",
+	"express",
+	"routes",
+	"API",
+	"REST",
+	"documentation"
   ],
   "scripts": {
   	"express": "npm run express4.1.0 && npm run express4.7.0 && npm run express4.14.0 && npm run express3.4.0 && npm run express3.1.0",
@@ -19,10 +27,9 @@
     "jshint": "npm run jshint-lib",
     "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose"
   },
-  "license": "UNLICENSED",
   "private": false,
   "engines": {
-    "node": "4.4.0"
+    "node": ">= 4.2.0"
   },
   "dependencies": {
     "ramda": "0.17.1"
@@ -33,5 +40,19 @@
     "mocha": "2.3.4",
     "sinon": "1.17.2",
     "supertest": "*"
-  }
+  },
+  "author": {
+    "name": "Stephen Scott",
+	"email": "scottie1984@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:scottie1984/swagger-express-router.git"
+  },
+  "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/scottie1984/swagger-express-router/issues"
+  },
+  "homepage": "https://github.com/scottie1984/swagger-express-router"
 }
