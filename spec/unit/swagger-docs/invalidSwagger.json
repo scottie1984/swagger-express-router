@@ -1,0 +1,23 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:8000",
+  "basePath": "/api/swagger/v1",
+  "paths": {
+    "/stephen\\scott": {
+      "get": {
+        "x-swagger-router-controller": "test",
+        "operationId": "swagTest",
+        "tags": ["/test"],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  }
+}

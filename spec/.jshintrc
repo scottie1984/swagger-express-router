@@ -1,0 +1,6 @@
+{
+  "extends": "../.jshintrc",
+  "mocha": true,
+  "expr": true,
+  "camelcase": false
+}

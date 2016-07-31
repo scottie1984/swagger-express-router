@@ -1,0 +1,37 @@
+{
+  "name": "swagger-express-router",
+  "version": "1.0.0",
+  "description": "Swagger Express Router",
+  "main": "./lib/swagger.js",
+  "files": [
+    "lib",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+  	"express": "npm run express4.1.0 && npm run express4.7.0 && npm run express4.14.0 && npm run express3.4.0 && npm run express3.1.0",
+  	"express4.1.0": "cd ./spec/integration/express4.1.0 && npm install",
+  	"express4.7.0": "cd ./spec/integration/express4.7.0 && npm install",
+  	"express4.14.0": "cd ./spec/integration/express4.14.0 && npm install",
+  	"express3.4.0": "cd ./spec/integration/express3.4.0 && npm install",
+  	"express3.1.0": "cd ./spec/integration/express3.1.0 && npm install",
+    "test": "node node_modules/mocha/bin/mocha spec/**/*.spec.js --recursive",
+    "jshint": "npm run jshint-lib",
+    "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose"
+  },
+  "license": "UNLICENSED",
+  "private": false,
+  "engines": {
+    "node": "4.4.0"
+  },
+  "dependencies": {
+    "ramda": "0.17.1"
+  },
+  "devDependencies": {
+    "chai": "3.2.0",
+    "jshint": "2.8.x",
+    "mocha": "2.3.4",
+    "sinon": "1.17.2",
+    "supertest": "*"
+  }
+}
