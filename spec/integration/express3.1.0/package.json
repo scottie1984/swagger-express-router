@@ -1,7 +1,8 @@
-{ "name": "express3.1.0",
+{
+  "name": "express3.1.0",
   "version": "1.0.0",
-  "description":"Express version 3.1.0",
+  "description": "Express version 3.1.0",
   "dependencies": {
-  	"express":"3.1.0"
+    "express": "3.1.0"
   }
 }
