@@ -134,7 +134,7 @@ The following should be supported
 
 ## Autentication
 You can also automatically handle your authentication for any swagger API which has been setup with a security array with at least one element e.g.
-```json
+```text
 {
     "openapi": "3.0.0",
      ...
@@ -166,6 +166,7 @@ const authenticate = async(req, res, next) => {
 swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, true, authenticate);
 ```
 At this time, there is no special handling that is depended on the type of authentication that was specified in swagger.
+The authentication will be done after the validation, just in case your authentication depends on your api inputs
 
 ## Test
 
