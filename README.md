@@ -61,47 +61,38 @@ module.exports = {
 };
 ```
 ## Validation
-You can now optionally use the swagger document to also validate your API inputs, both in your middleware or before your middleware is called.
-### Validation within your middleware
-This method will pass in an extra validator parameter as the first parameter of your middleware handler function. Change the above example in the following manner:
-```javascript
-const validate = true;
-swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, validate);
-```
-You will have to change your middleware function like so:
-```javascript
-const swagTest = (validator, req, res) => { 
-    const result = validator(req);
-    if (result.valid) {
-        res.send('Blah1');
-    } else {
-    	console.log(result.errors);
-    }
-};
-```
-The advantage of this method is that you can use the validator as you see fit within your middleware. 
-The disadvantage is that it will add the extra parameter, making your middleware functions incompatible with the standard behavior.
-### Validation before your middleware
-This method will validate the request before sending to your middleware. This means that if the call reaches your middleware, it has already been swagger validated.
-You do this by passing in a function instead of a boolean for the validate parameter when first setting up your routes.
-This function will only be called when validation errors where found.
-```javascript
-const validate = (validateErrors, middlewareFunction, req, res, next) => {
-    // this function only gets called when there is validation errors, in this case we return a bad request result when validation errors occurred
-    res.status(400).send({ code: "INVALID_API_PARAMETERS", errors: p_ValidateErrors });
-};
-swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, validate);
-```
-No changes are needed in your middleware in this case.
+You can now optionally use the swagger document to also validate your API inputs, before your middleware is called.
+If this is enabled, the input will have been fully swaggered validated by the time it reaches your middleware. Depending on which of the two methods you use,
+your middleware either never gets called if validation fails or it gets called after going through your own error handler function.
 
-If you still want to call the middleware after this function gets hit, you can use the middlewareFunction parameter, for example:
+### Fully automatic
+In this method the API input is fully automatically handled and your middleware will never gets called when any of the validations fails.
+To use this methid, just pass in true for the validation parameter when calling setUpRoutes, e.g. 
 ```javascript
-const validate = (validateErrors, middlewareFunction, req, res, next) => {
-	if (fixErrors(validateErrors, req)) { // maybe I can fix some of the errors here
+swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, true);
+```
+If validation succeeds, your middleware function will get called. If it fails, your middleware function will never get called and a 400: BAD REQUEST result will be returned containing a json object with the validation errors.
+
+### Providing your own handler function
+With this method the validation results will be send to a function you provide and you can then decide how to handle it. 
+To use this, you specify a function as the validate parameter when calling setUpRoutes e.g.
+```javascript
+const validate = (req, res, next) => {
+    // this function only gets called when there is validation errors, in this case we return a bad request result when validation errors occurred
+    res.status(400).send({ code: "INVALID_API_PARAMETERS", errors: res.locals.validateErrors });
+};
+swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, validate);
+```
+The validation errors can be found in res.locals.validateErrors.
+
+If you still want to call the middleware after this function gets hit, you can call the next function e.g.
+```javascript
+const validate = (req, res, next) => {
+	if (fixErrors(req, res.status.validateErrors)) { // maybe I can fix some of the errors here
 		// call the middleware if the fixes were successful
-		middlewareFunction(req, res, next);
+		next();
 	} else {
-        res.status(400).send({ code: "INVALID_API_PARAMETERS", errors: p_ValidateErrors });
+        res.status(400).send({ code: "INVALID_API_PARAMETERS", errors: res.locals.validateErrors });
 	}
 };
 swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, validate);
@@ -140,6 +131,41 @@ The following should be supported
 * object
     * maxProperties
     * minProperties
+
+## Autentication
+You can also automatically handle your authentication for any swagger API which has been setup with a security array with at least one element e.g.
+```json
+{
+    "openapi": "3.0.0",
+     ...
+     "paths": {
+        "/restricted/someapi": {
+            "post": {
+                ...
+                "security": [{
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }]
+            }
+        }   
+    }
+}
+```
+You can pass in an authentication function to the setUpRoutes like this:
+```javascript
+const authenticate = async(req, res, next) => {
+	const result = await authenticateUser(req);
+	if (result.isAuthenticated) {
+		res.locals.userInfo = result.userInfo;
+		next(); // don't forget to call next if authentication was successful, so the next middleware function will be called
+	} else {
+		res.status(401).send("Not authenticated");
+	}
+};
+swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, true, authenticate);
+```
+At this time, there is no special handling that is depended on the type of authentication that was specified in swagger.
 
 ## Test
 
