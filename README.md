@@ -100,7 +100,6 @@ swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, validate);
 ### Notes on validation support
 At the moment the validator has the following restrictions and missing features.
 * Only local references can be used for schemas. It does not support loading schemas from outside the swagger document.
-* It does not yet support recursive validation (e.g. validating items within arrays or objects within objects, where schemas within schemas are needed)
 * It does not support inheritance constructs like "allOf", "oneOf", "anyOf", "discriminator"
 * It does not support checking for additional properties as defined in the additionalProperties member of schema
 * It does not enforce readOnly, so no error is shown when a readOnly element is in the request.
@@ -128,9 +127,12 @@ The following should be supported
     * maxItems
     * minItems
     * uniqueItems
+    * per item validation
 * object
     * maxProperties
     * minProperties
+    * required
+    * per property validation
 
 ## Autentication
 You can also automatically handle your authentication for any swagger API which has been setup with a security array with at least one element e.g.
@@ -166,7 +168,8 @@ const authenticate = async(req, res, next) => {
 swagger.setUpRoutes(middlewareObj, app, swaggerDocument, useBasePath, true, authenticate);
 ```
 At this time, there is no special handling that is depended on the type of authentication that was specified in swagger.
-The authentication will be done after the validation, just in case your authentication depends on your api inputs
+The authentication will be done after the validation, just in case your authentication depends on your api inputs.
+If you want to continue to your middleware even if authentication fails, just call next in that case also. 
 
 ## Test
 
