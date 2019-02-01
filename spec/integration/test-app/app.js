@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = express => {
-
 	var app = express();
 	let simpleSwaggerDoc = require('./simpleSwagger.json');
 	let swaggerRouter = require('../../../lib');
@@ -16,7 +15,7 @@ module.exports = express => {
 	});
 
 	app.param('id', function(req, res, next, id) {
-		if(id === "redirect") {
+		if (id === "redirect") {
 			res.send('redirect');
 		} else {
 			next();
@@ -29,14 +28,13 @@ module.exports = express => {
 	};
 
 	app.get('/normal', function(req, res) {
-	   res.send({ ok: true })
-	})
-
+	   res.send({ ok: true });
+	});
 	swaggerRouter.setUpRoutes(middleware, app, simpleSwaggerDoc);
 
 	app.get('/afterNormal', function(req, res) {
-	   res.send({ after_ok: true })
-	})
+	   res.send({ after_ok: true });
+	});
 
 	return app;
 };

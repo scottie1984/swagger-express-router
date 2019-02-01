@@ -9,20 +9,20 @@
     "README.md"
   ],
   "keywords": [
-	"swagger",
-	"express",
-	"routes",
-	"API",
-	"REST",
-	"documentation"
+    "swagger",
+    "express",
+    "routes",
+    "API",
+    "REST",
+    "documentation"
   ],
   "scripts": {
-  	"express": "npm run express4.1.0 && npm run express4.7.0 && npm run express4.14.0 && npm run express3.4.0 && npm run express3.1.0",
-  	"express4.1.0": "cd ./spec/integration/express4.1.0 && npm install",
-  	"express4.7.0": "cd ./spec/integration/express4.7.0 && npm install",
-  	"express4.14.0": "cd ./spec/integration/express4.14.0 && npm install",
-  	"express3.4.0": "cd ./spec/integration/express3.4.0 && npm install",
-  	"express3.1.0": "cd ./spec/integration/express3.1.0 && npm install",
+    "express": "npm run express4.1.0 && npm run express4.7.0 && npm run express4.14.0 && npm run express3.4.0 && npm run express3.1.0",
+    "express4.1.0": "cd ./spec/integration/express4.1.0 && npm install",
+    "express4.7.0": "cd ./spec/integration/express4.7.0 && npm install",
+    "express4.14.0": "cd ./spec/integration/express4.14.0 && npm install",
+    "express3.4.0": "cd ./spec/integration/express3.4.0 && npm install",
+    "express3.1.0": "cd ./spec/integration/express3.1.0 && npm install",
     "test": "node node_modules/mocha/bin/mocha spec/**/*.spec.js --recursive",
     "jshint": "npm run jshint-lib",
     "jshint-lib": "node node_modules/jshint/bin/jshint --config ./.jshintrc ./lib --verbose"
@@ -31,19 +31,17 @@
   "engines": {
     "node": ">= 4.2.0"
   },
-  "dependencies": {
-    "ramda": "0.17.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "chai": "3.2.0",
-    "jshint": "2.8.x",
-    "mocha": "2.3.4",
-    "sinon": "1.17.2",
+    "chai": "^4.1.2",
+    "jshint": "^2.9.6",
+    "mocha": "^5.2.0",
+    "sinon": "^6.3.2",
     "supertest": "*"
   },
   "author": {
     "name": "Stephen Scott",
-	"email": "scottie1984@gmail.com"
+    "email": "scottie1984@gmail.com"
   },
   "repository": {
     "type": "git",
