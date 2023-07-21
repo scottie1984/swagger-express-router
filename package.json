@@ -1,6 +1,6 @@
 {
   "name": "swagger-express-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Swagger Express Router",
   "main": "./lib/index.js",
   "files": [
@@ -32,7 +32,7 @@
     "node": ">= 4.2.0"
   },
   "dependencies": {
-    "ramda": "0.17.1"
+    "ramda": "0.29.0"
   },
   "devDependencies": {
     "chai": "3.2.0",
